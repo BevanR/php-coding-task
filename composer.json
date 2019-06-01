@@ -1,0 +1,12 @@
+{
+    "name": "bevan/serato-task",
+    "authors": [
+        {
+            "name": "Bevan Rudge",
+            "email": "bevan@js.geek.nz"
+        }
+    ],
+    "require": {
+        "psr/http-message": "^1.0"
+    }
+}
