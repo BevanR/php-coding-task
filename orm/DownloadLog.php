@@ -2,7 +2,7 @@
 
 namespace Orm;
 
-use ActiveRecord;
+require('ActiveRecord.php');
 
 final class DownloadLog extends ActiveRecord
 {
