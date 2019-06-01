@@ -19,7 +19,12 @@ The [DownloadLog](orm/DownloadLog.php) model represents a log entry denoting a u
 ### Questions:
 
 1. What does the `final` keyword mean the [DownloadLog](orm/DownloadLog.php) model? What are the implications in removing the `final` declaration?
+
+> The `final` keyword prevents other classes from extending `class DownloadLog`, such that `class MyClass extends DownloadLog` would cause a fatal error. `final class` effectively declares the class as being a "leaf" at the end of a class "tree" (hierarchy).
+
 2. The current of implementation of [DownloadLog](orm/DownloadLog.php) contains a fatal error. What is it, and how would it be resolved?
+
+> It does not implement the `isModified()` method that `interface ActiveRecordInterface` requires. (There is also no autoloader to load undefined classes.)
 
 ### Coding task 1:
 
