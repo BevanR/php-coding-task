@@ -3,9 +3,12 @@
 namespace Orm;
 
 require('ActiveRecord.php');
+require('NumberValidator.php');
 
 final class DownloadLog extends ActiveRecord
 {
+    use NumberValidator;
+
     /* @var int */
     private $fileId;
 
@@ -36,10 +39,11 @@ final class DownloadLog extends ActiveRecord
     /**
      * @param int $fileId
      * @return DownloadLog
+     * @throws InvalidSerialIdentifierException
      */
-    public function setFileId(int $fileId): DownloadLog
+    public function setFileId($fileId): DownloadLog
     {
-        $this->fileId = $fileId;
+        $this->fileId = $this->validSerialIdentifier($fileId);
         $this->isModified = true;
         return $this;
     }
@@ -47,10 +51,11 @@ final class DownloadLog extends ActiveRecord
     /**
      * @param int $userId
      * @return DownloadLog
+     * @throws InvalidSerialIdentifierException
      */
-    public function setUserId(int $userId): DownloadLog
+    public function setUserId($userId): DownloadLog
     {
-        $this->userId = $userId;
+        $this->userId = $this->validSerialIdentifier($userId);
         $this->isModified = true;
         return $this;
     }
