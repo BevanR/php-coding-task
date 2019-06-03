@@ -2,7 +2,7 @@
 
 namespace Orm;
 
-require('ActiveRecordInterface.php');
+require_once('ActiveRecordInterface.php');
 
 /**
  * ActiveRecord

@@ -1,5 +1,6 @@
 <?php
-require('orm/DownloadLog.php');
+require_once('orm/DownloadLog.php');
+
 use Orm\DownloadLog;
 
 // This was copied from README.md.

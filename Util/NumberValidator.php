@@ -2,7 +2,7 @@
 
 namespace Util;
 
-require('InvalidArgumentException.php');
+require_once('InvalidArgumentException.php');
 
 /**
  * Casts values of unknown types to values of known types and constraints.
