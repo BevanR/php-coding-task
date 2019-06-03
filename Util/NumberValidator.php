@@ -13,19 +13,49 @@ require_once('InvalidArgumentException.php');
  */
 trait NumberValidator
 {
-    /**
-     * @param $raw
-     * @return int
-     * @throws InvalidSerialIdentifierException
-     */
     function validSerialIdentifier($raw): int
     {
-        $id = (int)$raw;
+        return $this->validPositiveInteger($raw);
+    }
 
-        if ($id == $raw && $id >= 1) {
-            return $id;
-        } else {
-            throw new InvalidSerialIdentifierException($raw);
+    function validInteger($raw): int
+    {
+        return $this->integerValidator($raw, 'integer', function ($value) {
+            return true;
+        });
+    }
+
+    function validPositiveInteger($raw): int
+    {
+        return $this->integerValidator($raw, 'positive integer', function ($value) {
+            return $value > 0;
+        });
+    }
+
+    function validNonNegativeInteger($raw): int
+    {
+        return $this->integerValidator($raw, 'non-negative integer', function ($value) {
+            return $value >= 0;
+        });
+    }
+
+    function validIntegerInRange($raw, int $min, int $max): int
+    {
+        return $this->integerValidator($raw, "integer in range [$min, $max]", function ($value) use ($max, $min) {
+            return $value >= $min && $value <= $max;
+        });
+    }
+
+    private function integerValidator($raw, $expectation, $comparator): int
+    {
+        if (is_numeric($raw)) {
+            $integer = (int)$raw;
+
+            if ($integer == $raw && $comparator($integer)) {
+                return $integer;
+            }
         }
+
+        throw new InvalidArgumentException($expectation, $raw);
     }
 }
