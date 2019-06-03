@@ -1,71 +1,61 @@
 <?php
-require('orm/DownloadLog.php');
+require_once('NumberValidator.php');
 
-use Orm\DownloadLog;
 use Util\InvalidArgumentException;
+use Util\NumberValidator;
 
 /**
- * TODO Use a test suite.
+ * TODO Use a testing library for better tooling.
+ * TODO Organize this into a suite.
  */
-$downloadLog = DownloadLog::create();
-
-$downloadLog->setFileId('1000');
-$downloadLog->setFileId(1000);
-$downloadLog->setFileId(0x1000);
-$downloadLog->setFileId('1');
-$downloadLog->setFileId(1);
-
-try {
-    $downloadLog->setFileId('0');
-    throw new Exception('Expected exception');
-} catch (InvalidArgumentException $e) {
+class MockNumberValidator
+{
+    use NumberValidator;
 }
 
-try {
-    $downloadLog->setFileId(0);
-    throw new Exception('Expected exception');
-} catch (InvalidArgumentException $e) {
+$validator = new MockNumberValidator();
+
+// Valid positive integer inputs.
+foreach ([1000, '1000', 0x1000, 1, '1'] as $value) {
+    $validator->validPositiveInteger($value);
 }
 
-try {
-    $downloadLog->setFileId(-1);
-    throw new Exception('Expected exception');
-} catch (InvalidArgumentException $e) {
+// Invalid positive integer inputs.
+foreach ([0, '0', -1, '-1', -111, '-111', 12.3, 17 / 3, 0 - 17 / 3] as $value) {
+    try {
+        $validator->validPositiveInteger($value);
+        throw new TestFailedException('InvalidArgumentException', $value);
+    } catch (InvalidArgumentException $e) {
+        // An InvalidArgumentException is expected for these scenarios.
+    }
 }
 
-try {
-    $downloadLog->setFileId('-1');
-    throw new Exception('Expected exception');
-} catch (InvalidArgumentException $e) {
+// Valid non-negative integer inputs.
+foreach ([0, '0', 1000, '1000', 0x1000, 1, '1'] as $value) {
+    $validator->validNonNegativeInteger($value);
 }
 
-try {
-    $downloadLog->setFileId('-1111');
-    throw new Exception('Expected exception');
-} catch (InvalidArgumentException $e) {
+// Invalid positive integer inputs.
+foreach ([-1, '-1', -111, '-111', 12.3, 17 / 3, 0 - 17 / 3, [], 'asdf', false, true] as $value) {
+    try {
+        $validator->validNonNegativeInteger($value);
+        throw new TestFailedException('InvalidArgumentException', $value);
+    } catch (InvalidArgumentException $e) {
+        // An InvalidArgumentException is expected for these scenarios.
+    }
 }
 
-try {
-    $downloadLog->setFileId(-111);
-    throw new Exception('Expected exception');
-} catch (InvalidArgumentException $e) {
+// Valid non-negative integer inputs.
+foreach ([0, '0', 1000, '1000', 0x1000, 1, '1', -1, '-1', -111, '-111'] as $value) {
+    $validator->validInteger($value);
 }
 
-try {
-    $downloadLog->setFileId(12.3);
-    throw new Exception('Expected exception');
-} catch (InvalidArgumentException $e) {
+// Invalid non-negative integer inputs.
+foreach ([12.3, 17 / 3, 0 - 17 / 3, [], 'asdf', false, true] as $value) {
+    try {
+        $validator->validInteger($value);
+        throw new TestFailedException('InvalidArgumentException', $value);
+    } catch (InvalidArgumentException $e) {
+        // An InvalidArgumentException is expected for these scenarios.
+    }
 }
-
-try {
-    $downloadLog->setFileId(17 / 3);
-    throw new Exception('Expected exception');
-} catch (InvalidArgumentException $e) {
-}
-
-try {
-    $downloadLog->setFileId(0 - 17 / 3);
-    throw new Exception('Expected exception');
-} catch (InvalidArgumentException $e) {
-}
-
