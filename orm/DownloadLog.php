@@ -2,8 +2,10 @@
 
 namespace Orm;
 
+use Util\NumberValidator;
+
 require('ActiveRecord.php');
-require('NumberValidator.php');
+require('../Util/NumberValidator.php');
 
 final class DownloadLog extends ActiveRecord
 {

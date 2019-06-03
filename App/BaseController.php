@@ -1,6 +1,6 @@
 <?php
 
-namespace app;
+namespace App;
 
 use GuzzleHttp\Psr7\Response;
 use Orm\NumberValidator;
@@ -9,6 +9,8 @@ use Psr\Http\Message\ServerRequestInterface;
 
 abstract class BaseController
 {
+    use NumberValidator;
+
     // Stash headers for cookies etc here.
     protected $headers = [];
 

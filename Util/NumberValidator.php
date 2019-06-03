@@ -1,8 +1,8 @@
 <?php
 
-namespace Orm;
+namespace Util;
 
-require('InvalidSerialIdentifierException.php');
+require('InvalidArgumentException.php');
 
 /**
  * Casts values of unknown types to values of known types and constraints.
