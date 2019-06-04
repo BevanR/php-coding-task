@@ -4,10 +4,6 @@ require_once('EmailAddressValidator.php');
 use Util\EmailAddressValidator;
 use Util\InvalidArgumentException;
 
-/**
- * TODO Use a testing library for better tooling.
- * TODO Organize this into a suite.
- */
 class MockEmailAddressValidator
 {
     use EmailAddressValidator;

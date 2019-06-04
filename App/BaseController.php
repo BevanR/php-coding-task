@@ -31,7 +31,7 @@ abstract class BaseController
         return $this->response('application/json', json_encode($data), $status);
     }
 
-    function response(string $type, string $body, int $status = 200): ResponseInterface
+    function response(string $type, string $body, int $status): ResponseInterface
     {
         $status = $this->validIntegerInRange($status, 100, 999);
         $this->headers['Content-Type'] = $type;

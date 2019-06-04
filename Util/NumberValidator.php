@@ -7,9 +7,7 @@ require_once('InvalidArgumentException.php');
 /**
  * Casts values of unknown types to values of known types and constraints.
  *
- * TODO Add more validators for other constraints and types of data.
- *
- * @package Orm
+ * @package Util
  */
 trait NumberValidator
 {

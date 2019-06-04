@@ -2,6 +2,7 @@
 
 namespace Orm;
 
+use Util\InvalidArgumentException;
 use Util\NumberValidator;
 
 require_once('ActiveRecord.php');
@@ -39,9 +40,9 @@ final class DownloadLog extends ActiveRecord
     }
 
     /**
-     * @param int $fileId
+     * @param $fileId
      * @return DownloadLog
-     * @throws InvalidSerialIdentifierException
+     * @throws InvalidArgumentException
      */
     public function setFileId($fileId): DownloadLog
     {
@@ -51,9 +52,9 @@ final class DownloadLog extends ActiveRecord
     }
 
     /**
-     * @param int $userId
+     * @param $userId
      * @return DownloadLog
-     * @throws InvalidSerialIdentifierException
+     * @throws InvalidArgumentException
      */
     public function setUserId($userId): DownloadLog
     {
